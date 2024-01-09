@@ -38,8 +38,11 @@ $hotels = [
 ];
 
 foreach ($hotels as $hotel) {
-    var_dump($hotel);
-    echo "</br> <hr>";
+    foreach ($hotel as $key => $value) {
+        echo "$key : $value";
+        echo "</br>";
+    }
+    echo "<hr>";
 }
 
 ?>
