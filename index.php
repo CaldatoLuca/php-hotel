@@ -37,6 +37,8 @@ $hotels = [
     ],
 ];
 $filter_parking = $_GET['parking'] ?? 'reset';
+$filter_vote = $_GET['vote'] ?? 0;
+$int_filter_vote = (int)$filter_vote;
 ?>
 
 <!DOCTYPE html>
@@ -56,24 +58,55 @@ $filter_parking = $_GET['parking'] ?? 'reset';
         <h1 class="mb-5">Hotels</h1>
 
         <!-- form -->
-        <form action="index.php" method="GET" class="mb-4">
+        <form action="index.php" method="GET" class="mb-4 d-flex flex-wrap justify-content-around ">
             <!-- selezione parcheggio -->
-            <h3>Parcheggio</h3>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="parking" id="inlineRadio1" value="yes">
-                <label class="form-check-label" for="inlineRadio1">Si</label>
+            <div>
+                <h3>Parcheggio</h3>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="parking" id="inlineRadio1" value="yes">
+                    <label class="form-check-label" for="inlineRadio1">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="parking" id="inlineRadio2" value="no">
+                    <label class="form-check-label" for="inlineRadio2">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="parking" id="inlineRadio2" value="reset">
+                    <label class="form-check-label" for="inlineRadio2">Reset</label>
+                </div>
             </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="parking" id="inlineRadio2" value="no">
-                <label class="form-check-label" for="inlineRadio2">No</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="parking" id="inlineRadio2" value="reset">
-                <label class="form-check-label" for="inlineRadio2">Reset</label>
+
+            <!-- selezione voto -->
+            <div>
+                <h3>Stelle</h3>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="vote" id="inlineRadio2" value="1">
+                    <label class="form-check-label" for="inlineRadio2">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="vote" id="inlineRadio2" value="2">
+                    <label class="form-check-label" for="inlineRadio2">2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="vote" id="inlineRadio2" value="3">
+                    <label class="form-check-label" for="inlineRadio2">3</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="vote" id="inlineRadio2" value="4">
+                    <label class="form-check-label" for="inlineRadio2">4</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="vote" id="inlineRadio2" value="5">
+                    <label class="form-check-label" for="inlineRadio2">5</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="vote" id="inlineRadio2" value="0">
+                    <label class="form-check-label" for="inlineRadio2">Reset</label>
+                </div>
             </div>
 
             <!-- bottone -->
-            <button class="btn btn-success">Invio</button>
+            <div class="w-100"> <button class="btn btn-success">Invio</button></div>
 
         </form>
 
@@ -90,7 +123,7 @@ $filter_parking = $_GET['parking'] ?? 'reset';
             </thead>
             <tbody>
                 <?php foreach ($hotels as $hotel) {
-                    if ($filter_parking === 'reset') {
+                    if ($filter_parking === 'reset' && $hotel['vote'] >= $int_filter_vote) {
                         echo '<tr>';
                         echo '<td>' . $hotel['name'] . '</td>';
                         echo '<td>' . $hotel['description'] . '</td>';
@@ -98,7 +131,7 @@ $filter_parking = $_GET['parking'] ?? 'reset';
                         echo '<td>' . $hotel['vote'] . '</td>';
                         echo '<td>' . $hotel['distance_to_center'] . ' km</td>';
                         echo '</tr>';
-                    } elseif ($filter_parking === 'yes' && $hotel['parking'] === true) {
+                    } elseif ($filter_parking === 'yes' && $hotel['parking'] === true && $hotel['vote'] >= $int_filter_vote) {
                         echo '<tr>';
                         echo '<td>' . $hotel['name'] . '</td>';
                         echo '<td>' . $hotel['description'] . '</td>';
@@ -106,7 +139,7 @@ $filter_parking = $_GET['parking'] ?? 'reset';
                         echo '<td>' . $hotel['vote'] . '</td>';
                         echo '<td>' . $hotel['distance_to_center'] . ' km</td>';
                         echo '</tr>';
-                    } elseif ($filter_parking === 'no' && $hotel['parking'] === false) {
+                    } elseif ($filter_parking === 'no' && $hotel['parking'] === false && $hotel['vote'] >= $int_filter_vote) {
                         echo '<tr>';
                         echo '<td>' . $hotel['name'] . '</td>';
                         echo '<td>' . $hotel['description'] . '</td>';
