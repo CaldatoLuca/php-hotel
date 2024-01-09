@@ -15,11 +15,11 @@ $array = [1, 2, 3, 4, 5,];
     <h1>Ciao</h1>
     <?php var_dump($array) ?>
 
-    <?php echo $array ?>
-    echo '
-    <pre>';
+    <?php echo '<pre>';
 var_dump($variabile_array');
 echo '</pre>';
+ ?>
+    
 </body>
 
 </html>
